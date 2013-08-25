@@ -10861,4 +10861,6 @@ Box2D.postDefs = [];
       s.stroke();
    };
 })();
+var i;
+for (i = 0; i < Box2D.postDefs.length; ++i) Box2D.postDefs[i]();
 module.exports = Box2D
