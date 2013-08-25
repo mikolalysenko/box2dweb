@@ -1,0 +1,22 @@
+{
+  "name": "box2dweb",
+  "version": "0.0.0",
+  "description": "2D physics engine",
+  "main": "box2d.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikolalysenko/box2dweb.git"
+  },
+  "keywords": [
+    "box2d",
+    "physics"
+  ],
+  "authors": ["Uli Hecht", "Erin Cato"],
+  "license": "other",
+  "bugs": {
+    "url": "https://github.com/mikolalysenko/box2dweb/issues"
+  }
+}
