@@ -15,21 +15,11 @@
 * misrepresented as being the original software.
 * 3. This notice may not be removed or altered from any source distribution.
 */
+"use strict"
+
 var Box2D = {};
 
 (function (a2j, undefined) {
-
-   if(!(Object.prototype.defineProperty instanceof Function)
-      && Object.prototype.__defineGetter__ instanceof Function
-      && Object.prototype.__defineSetter__ instanceof Function)
-   {
-      Object.defineProperty = function(obj, p, cfg) {
-         if(cfg.get instanceof Function)
-            obj.__defineGetter__(p, cfg.get);
-         if(cfg.set instanceof Function)
-            obj.__defineSetter__(p, cfg.set);
-      }
-   }
    
    function emptyFn() {};
    a2j.inherit = function(cls, base) {
@@ -1753,20 +1743,19 @@ Box2D.postDefs = [];
       __this.m_pairCount = 0;
       var i = 0,
          queryProxy;
+       function QueryCallback(proxy) {
+          if (proxy == queryProxy) return true;
+          if (__this.m_pairCount == __this.m_pairBuffer.length) {
+             __this.m_pairBuffer[__this.m_pairCount] = new b2DynamicTreePair();
+          }
+          var pair = __this.m_pairBuffer[__this.m_pairCount];
+          pair.proxyA = proxy < queryProxy ? proxy : queryProxy;
+          pair.proxyB = proxy >= queryProxy ? proxy : queryProxy;++__this.m_pairCount;
+          return true;
+       };
       for (i = 0;
       i < __this.m_moveBuffer.length; ++i) {
          queryProxy = __this.m_moveBuffer[i];
-
-         function QueryCallback(proxy) {
-            if (proxy == queryProxy) return true;
-            if (__this.m_pairCount == __this.m_pairBuffer.length) {
-               __this.m_pairBuffer[__this.m_pairCount] = new b2DynamicTreePair();
-            }
-            var pair = __this.m_pairBuffer[__this.m_pairCount];
-            pair.proxyA = proxy < queryProxy ? proxy : queryProxy;
-            pair.proxyB = proxy >= queryProxy ? proxy : queryProxy;++__this.m_pairCount;
-            return true;
-         };
          var fatAABB = __this.m_tree.GetFatAABB(queryProxy);
          __this.m_tree.Query(QueryCallback, fatAABB);
       }
@@ -10863,4 +10852,5 @@ Box2D.postDefs = [];
 })();
 var i;
 for (i = 0; i < Box2D.postDefs.length; ++i) Box2D.postDefs[i]();
+
 module.exports = Box2D
