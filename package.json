@@ -1,6 +1,6 @@
 {
   "name": "box2dweb",
-  "version": "2.1.0b",
+  "version": "2.1.1",
   "description": "2D physics engine",
   "main": "box2d.js",
   "scripts": {
